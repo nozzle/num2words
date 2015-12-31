@@ -44,16 +44,23 @@ func Convert(number int) string {
 		textGroup[i] = digitGroup2Text(groups[i])
 	}
 	combined := textGroup[0]
+	appendAnd := groups[0] > 0 && groups[0] < 100
 
 	for i := 1; i < groupsNumber; i++ {
 		if groups[i] != 0 {
 			prefix := textGroup[i] + " " + scaleNumbersWords[i]
 
 			if len(combined) != 0 {
-				prefix += " "
+				if appendAnd && i == 1 {
+					prefix += " and "
+					// fmt.Printf("groupsNumber: %d | i: %d\n", groupsNumber, i)
+				} else {
+					prefix += " "
+				}
 			}
 
 			combined = prefix + combined
+			// fmt.Printf("combined: %s\n", combined)
 		}
 	}
 
