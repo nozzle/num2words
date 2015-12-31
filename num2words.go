@@ -4,7 +4,7 @@ package num2words
 import "math"
 
 // how many digit's groups to process
-const groupsNumber int = 4
+const groupsNumber int = 9
 
 var smallNumbersWords = []string{
 	"zero", "one", "two", "three", "four",
@@ -17,7 +17,7 @@ var tensWords = []string{
 	"sixty", "seventy", "eighty", "ninety",
 }
 var scaleNumbersWords = []string{
-	"", "thousand", "million", "billion",
+	"", "thousand", "million", "billion", "trillion", "quadrillion", "quintillion", "sextillion", "septillion",
 }
 
 type digitGroup int
