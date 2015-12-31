@@ -1,6 +1,4 @@
-/*
-num2words implements numbers to words converter.
-*/
+// Package num2words implements numbers to words converter.
 package num2words
 
 import "math"
