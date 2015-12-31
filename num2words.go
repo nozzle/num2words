@@ -6,19 +6,19 @@ package num2words
 import "math"
 
 // how many digit's groups to process
-const groups_number int = 4
+const groupsNumber int = 4
 
-var _smallNumbers = []string{
+var smallNumbersWords = []string{
 	"zero", "one", "two", "three", "four",
 	"five", "six", "seven", "eight", "nine",
 	"ten", "eleven", "twelve", "thirteen", "fourteen",
 	"fifteen", "sixteen", "seventeen", "eighteen", "nineteen",
 }
-var _tens = []string{
+var tensWords = []string{
 	"", "", "twenty", "thirty", "forty", "fifty",
 	"sixty", "seventy", "eighty", "ninety",
 }
-var _scaleNumbers = []string{
+var scaleNumbersWords = []string{
 	"", "thousand", "million", "billion",
 }
 
@@ -28,28 +28,28 @@ type digitGroup int
 func Convert(number int) string {
 	// Zero rule
 	if number == 0 {
-		return _smallNumbers[0]
+		return smallNumbersWords[0]
 	}
 
 	// Divide into three-digits group
-	var groups [groups_number]digitGroup
+	var groups [groupsNumber]digitGroup
 	positive := math.Abs(float64(number))
 
 	// Form three-digit groups
-	for i := 0; i < groups_number; i++ {
+	for i := 0; i < groupsNumber; i++ {
 		groups[i] = digitGroup(math.Mod(positive, 1000))
 		positive /= 1000
 	}
 
-	var textGroup [groups_number]string
-	for i := 0; i < groups_number; i++ {
+	var textGroup [groupsNumber]string
+	for i := 0; i < groupsNumber; i++ {
 		textGroup[i] = digitGroup2Text(groups[i])
 	}
 	combined := textGroup[0]
 
-	for i := 1; i < groups_number; i++ {
+	for i := 1; i < groupsNumber; i++ {
 		if groups[i] != 0 {
-			prefix := textGroup[i] + " " + _scaleNumbers[i]
+			prefix := textGroup[i] + " " + scaleNumbersWords[i]
 
 			if len(combined) != 0 {
 				prefix += " "
@@ -75,7 +75,7 @@ func digitGroup2Text(group digitGroup) (ret string) {
 	tensUnits := intMod(int(group), 100)
 
 	if hundreds != 0 {
-		ret += _smallNumbers[hundreds] + " hundred"
+		ret += smallNumbersWords[hundreds] + " hundred"
 
 		if tensUnits != 0 {
 			ret += " "
@@ -86,13 +86,13 @@ func digitGroup2Text(group digitGroup) (ret string) {
 	units := intMod(tensUnits, 10)
 
 	if tens >= 2 {
-		ret += _tens[tens]
+		ret += tensWords[tens]
 
 		if units != 0 {
-			ret += " " + _smallNumbers[units]
+			ret += " " + smallNumbersWords[units]
 		}
 	} else if tensUnits != 0 {
-		ret += _smallNumbers[tensUnits]
+		ret += smallNumbersWords[tensUnits]
 	}
 
 	return
