@@ -53,14 +53,12 @@ func Convert(number int) string {
 			if len(combined) != 0 {
 				if appendAnd && i == 1 {
 					prefix += " and "
-					// fmt.Printf("groupsNumber: %d | i: %d\n", groupsNumber, i)
 				} else {
 					prefix += " "
 				}
 			}
 
 			combined = prefix + combined
-			// fmt.Printf("combined: %s\n", combined)
 		}
 	}
 
@@ -94,7 +92,7 @@ func digitGroup2Text(group digitGroup) (ret string) {
 		ret += tensWords[tens]
 
 		if units != 0 {
-			ret += " " + smallNumbersWords[units]
+			ret += "-" + smallNumbersWords[units]
 		}
 	} else if tensUnits != 0 {
 		ret += smallNumbersWords[tensUnits]
